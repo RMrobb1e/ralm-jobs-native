@@ -10,7 +10,7 @@ import {
 import { useRouter } from "expo-router";
 
 import styles from "./welcome.style";
-import { SIZES, icons } from "../../../constants";
+import { COLORS, SIZES, icons } from "../../../constants";
 
 const jobTypes = ["Full Time", "Part Time", "Internship", "Freelance"];
 
@@ -32,6 +32,7 @@ const Welcome = () => {
             value=""
             onChangeText={() => {}}
             placeholder="What are you looking for?"
+            placeholderTextColor={COLORS.gray}
           />
         </View>
         <TouchableOpacity style={styles.searchBtn} onPress={() => {}}>
