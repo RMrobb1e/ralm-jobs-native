@@ -6,11 +6,13 @@ import NearbyJobCard from "../../common/cards/nearby/NearbyJobCard";
 import { ActivityIndicator } from "react-native-web";
 import { COLORS, SIZES } from "../../../constants";
 import { useFetch } from "../../../hook";
+import { useRouter } from "expo-router";
 
 const Nearbyjobs = () => {
-  const { response, isLoading, error } = useFetch("search", {
+  const router = useRouter();
+  const { data, isLoading, error } = useFetch("search", {
     query: "React developer",
-    num_pages: 1
+    num_pages: 1,
   });
 
   const renderList = () => {
@@ -22,11 +24,14 @@ const Nearbyjobs = () => {
       return <Text>Something went wrong</Text>;
     }
 
-    return response.data?.map((job) => (
+    return data?.map((job) => (
       <NearbyJobCard
         job={job}
         key={job.job_id}
-        handleNavigate={() => router.push(`/job-details/${job.job_id}`)}
+        handleNavigate={() => {
+          console.log("puh");
+          router.push(`/job-details/${job.job_id}`);
+        }}
       />
     ));
   };

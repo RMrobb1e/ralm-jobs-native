@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { RAPID_API_KEY } from "@env";
+// import { RAPID_API_KEY } from "@env";
 
-const rapidApiKey = RAPID_API_KEY;
+// const rapidApiKey = RAPID_API_KEY;
 
-export const useFetch = (endpoint, query) => {
+export const useFetch = (endpoint, query, skip = false) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -14,9 +14,9 @@ export const useFetch = (endpoint, query) => {
     url: `https://jsearch.p.rapidapi.com/${endpoint}`,
     params: { ...query },
     headers: {
-      "X-RapidAPI-Key": rapidApiKey,
-      "X-RapidAPI-Host": "jsearch.p.rapidapi.com"
-    }
+      "X-RapidAPI-Key": "619e879091mshb6e5c701830dbc5p17ac20jsn80e25a402c05",
+      "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
+    },
   };
 
   const fetchData = async () => {
@@ -24,22 +24,22 @@ export const useFetch = (endpoint, query) => {
 
     try {
       const response = await axios.request(options);
-      setData(response.data);
+
+      setData(response.data.data);
     } catch (error) {
       setError(error);
-      alert("There is an error");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (!skip) fetchData();
+  }, [skip]);
 
   const refetch = () => {
     fetchData();
   };
 
-  return { response: data, loading, error, refetch };
+  return { data, loading, error, refetch };
 };

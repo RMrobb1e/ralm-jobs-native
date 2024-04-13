@@ -8,9 +8,9 @@ import { COLORS, SIZES } from "../../../constants";
 import { useFetch } from "../../../hook";
 
 const Popularjobs = () => {
-  const { response, isLoading, error } = useFetch("search", {
+  const { data, isLoading, error } = useFetch("search", {
     query: "React developer",
-    num_pages: 1
+    num_pages: 1,
   });
 
   const renderList = () => {
@@ -24,7 +24,7 @@ const Popularjobs = () => {
 
     return (
       <FlatList
-        data={response.data}
+        data={data}
         renderItem={({ item }) => (
           <PopularJobCard
             // selectedJob={selectedJob}
