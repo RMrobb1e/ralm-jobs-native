@@ -8,15 +8,24 @@ import {
   Text,
   View,
 } from "react-native";
-import { Company, JobFooter, JobTabs, ScreenHeaderBtn } from "../../components";
+import {
+  Company,
+  JobFooter,
+  JobTabs,
+  ScreenHeaderBtn,
+  Specifics,
+} from "../../components";
 import { COLORS, SIZES, icons } from "../../constants";
 import { useFetch } from "../../hook";
+
+const tabs = ["About", "Qualifications", "Responsibilities"];
 
 const JobDetails = () => {
   const params = useSearchParams();
   const router = useRouter();
 
   const [refreshing, setRefreshing] = useState(false);
+  const [activeTab, setActiveTab] = useState(tabs[0]);
 
   const { data, isLoading, error } = useFetch(
     "job-details",
@@ -29,6 +38,32 @@ const JobDetails = () => {
   console.log(params.id);
 
   const onRefresh = () => {};
+
+  const displayTabContent = () => {
+    switch (activeTab) {
+      case "About":
+        return (
+          <View>
+            <Text>About</Text>
+          </View>
+        );
+      case "Qualifications":
+        return (
+          <Specifics
+            title="Qualifications"
+            points={data[0].job_highlights?.Qualifications ?? ["N/A"]}
+          />
+        );
+      case "Responsibilities":
+        return (
+          <View>
+            <Text>Responsibilities</Text>
+          </View>
+        );
+      default:
+        return <Text>Something went wrong</Text>;
+    }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -68,14 +103,13 @@ const JobDetails = () => {
               companyName={data[0].employer_name}
               location={data[0].job_country}
             />
-            {/* 
-                <JobTabs
-                  tabs={tabs}
-                  activeTab={activeTab}
-                  setActiveTab={setActiveTab}
-                />
+            <JobTabs
+              tabs={tabs}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+            />
 
-                {displayTabContent()} */}
+            {displayTabContent()}
           </View>
         )}
       </ScrollView>
