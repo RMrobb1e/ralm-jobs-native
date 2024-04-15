@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
   logoImage: {
     width: "80%",
     height: "80%",
+    backgroundSize: "contain",
   },
   jobTitleBox: {
     marginTop: SIZES.small,
