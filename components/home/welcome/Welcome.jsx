@@ -5,7 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  FlatList
+  FlatList,
 } from "react-native";
 import { useRouter } from "expo-router";
 
@@ -14,7 +14,7 @@ import { COLORS, SIZES, icons } from "../../../constants";
 
 const jobTypes = ["Full Time", "Part Time", "Internship", "Freelance"];
 
-const Welcome = () => {
+const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
   const router = useRouter();
   const [activeJobType, setActiveJobType] = useState(jobTypes[0]);
 
@@ -29,13 +29,13 @@ const Welcome = () => {
         <View style={styles.searchWrapper}>
           <TextInput
             style={styles.searchInput}
-            value=""
-            onChangeText={() => {}}
+            value={searchTerm}
+            onChangeText={(text) => setSearchTerm(text)}
             placeholder="What are you looking for?"
             placeholderTextColor={COLORS.gray}
           />
         </View>
-        <TouchableOpacity style={styles.searchBtn} onPress={() => {}}>
+        <TouchableOpacity style={styles.searchBtn} onPress={handleClick}>
           <Image
             source={icons.search}
             style={styles.searchBtnImage}
