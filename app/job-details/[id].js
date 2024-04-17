@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import {
   Company,
+  JobAbout,
   JobFooter,
   JobTabs,
   ScreenHeaderBtn,
@@ -43,9 +44,9 @@ const JobDetails = () => {
     switch (activeTab) {
       case "About":
         return (
-          <View>
-            <Text>About</Text>
-          </View>
+          <JobAbout
+            info={data[0].job_description ?? "No description available"}
+          />
         );
       case "Qualifications":
         return (
@@ -56,9 +57,10 @@ const JobDetails = () => {
         );
       case "Responsibilities":
         return (
-          <View>
-            <Text>Responsibilities</Text>
-          </View>
+          <Specifics
+            title="Responsibilities"
+            points={data[0].job_highlights?.Responsibilities ?? ["N/A"]}
+          />
         );
       default:
         return <Text>Something went wrong</Text>;
@@ -113,7 +115,13 @@ const JobDetails = () => {
           </View>
         )}
       </ScrollView>
-      <JobFooter />
+      {data[0] && (
+        <JobFooter
+          url={
+            data[0].job_google_link ?? "https://careers.google.com/job/results"
+          }
+        />
+      )}
     </SafeAreaView>
   );
 };
