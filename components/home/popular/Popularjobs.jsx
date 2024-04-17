@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
 
 import styles from "./popularjobs.style";
@@ -6,12 +6,21 @@ import PopularJobCard from "../../common/cards/popular/PopularJobCard";
 import { ActivityIndicator } from "react-native-web";
 import { COLORS, SIZES } from "../../../constants";
 import { useFetch } from "../../../hook";
+import { useRouter } from "expo-router";
 
 const Popularjobs = () => {
+  const router = useRouter();
   const { data, isLoading, error } = useFetch("search", {
     query: "React developer",
     num_pages: 1,
   });
+
+  const [selectedJob, setSelectedJob] = useState();
+
+  const handleCardPress = (item) => {
+    router.push(`/job-details/${item.job_id}`);
+    setSelectedJob(item.job_id);
+  };
 
   const renderList = () => {
     if (isLoading) {
@@ -27,8 +36,8 @@ const Popularjobs = () => {
         data={data}
         renderItem={({ item }) => (
           <PopularJobCard
-            // selectedJob={selectedJob}
-            // handleCardPress={handleCardPress}
+            selectedJob={selectedJob}
+            handleCardPress={handleCardPress}
             item={item}
             key={item.job_id}
           />

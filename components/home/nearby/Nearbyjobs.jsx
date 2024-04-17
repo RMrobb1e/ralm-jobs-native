@@ -29,7 +29,6 @@ const Nearbyjobs = () => {
         job={job}
         key={job.job_id}
         handleNavigate={() => {
-          console.log("puh");
           router.push(`/job-details/${job.job_id}`);
         }}
       />

@@ -1,8 +1,7 @@
-import React from "react";
-import { View, TouchableOpacity, Image, Linking, Text } from "react-native";
+import { Image, Linking, Text, TouchableOpacity, View } from "react-native";
 
-import styles from "./footer.style";
 import { icons } from "../../../constants";
+import styles from "./footer.style";
 
 const Footer = ({ url }) => {
   return (
@@ -14,6 +13,7 @@ const Footer = ({ url }) => {
           style={styles.likeBtnImage}
         />
       </TouchableOpacity>
+
       <TouchableOpacity
         style={styles.applyBtn}
         onPress={() => Linking.openURL(url)}
